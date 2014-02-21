@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mach-ii PUBLIC "-//Mach-II//DTD Mach-II Configuration 1.6.0//EN"
+	"http://www.mach-ii.com/dtds/mach-ii_1_6_0.dtd" >
+
+<mach-ii version="1.6">
+	<!-- INCLUDES -->
+	<includes>
+		<include file="./mach-ii_coldspringProperty.xml" />
+	</includes>
+	
+	<!-- PROPERTIES -->
+	<properties>
+		<property name="applicationRoot" value="/apphome" />
+		<property name="defaultEvent" value="home" />
+		<property name="eventParameter" value="event" />
+		<property name="parameterPrecedence" value="form" />
+		<property name="maxEvents" value="10" />
+		<property name="exceptionEvent" value="exception" />
+	</properties>
+
+	<!-- LISTENERS -->
+	<listeners>
+		<listener name="PageTemplateListener" type="apphome.listeners.PageTemplateListener" />
+	</listeners>
+	
+	<!-- MESSAGE SUBSCRIBERS -->
+	<message-subscribers>
+	</message-subscribers>
+	
+	<!-- EVENT-FILTERS -->
+	<event-filters>
+	</event-filters>
+
+	<!-- PLUGINS -->
+	<plugins>
+	</plugins>
+
+	<!-- EVENT-HANDLERS -->
+	<event-handlers>
+		<event-handler event="home" access="public">
+			<notify listener="PageTemplateListener" method="getPortfolio" resultArg="Portfolio" />
+			<view-page name="home" />
+		</event-handler>
+		
+		<event-handler event="save" access="public">
+			<notify listener="PageTemplateListener" method="savePageTemplate" resultArg="SaveResult" />
+			<announce event="home" copyEventArgs="true" />
+		</event-handler>
+
+		<event-handler event="delete" access="public">
+			<notify listener="PageTemplateListener" method="getPageTemplate" resultArg="PageTemplate" />
+			<notify listener="PageTemplateListener" method="deletePageTemplate" resultArg="SaveResult" />
+			<announce event="home" copyEventArgs="true" />
+		</event-handler>
+	
+		<event-handler event="exception" access="private">
+			<view-page name="exception" />
+		</event-handler>
+	</event-handlers>
+	
+	<!-- SUBROUTINES -->
+	<subroutines>
+	</subroutines>
+	
+	<!-- PAGE-VIEWS -->
+	<page-views>
+		<page-view name="home" page="/views/home.cfm" />
+		<page-view name="exception" page="/views/exception.cfm" />
+	</page-views>
+	
+</mach-ii>

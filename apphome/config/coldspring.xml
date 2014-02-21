@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans>
+	<bean id="PageTemplateDAO" class="apphome.model.PageTemplateDAO">
+
+	</bean>
+	<bean id="PageTemplateGateway" class="apphome.model.PageTemplateGateway">
+
+	</bean>
+	<bean id="PageTemplateService" class="apphome.model.PageTemplateService">
+		<constructor-arg name="PageTemplateDAO">
+			<ref bean="PageTemplateDAO"/>
+		</constructor-arg>
+		<constructor-arg name="PageTemplateGateway">
+			<ref bean="PageTemplateGateway"/>
+		</constructor-arg>
+	</bean>
+</beans>
